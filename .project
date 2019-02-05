@@ -1,0 +1,16 @@
+{
+    "folders":
+    [
+        {}
+    ],
+    "settings":
+    {
+        "phpcs":
+        {
+            "phpcs_additional_args":
+            {
+                "--standard": "./phpcs.xml"
+            }
+        }
+    }
+}
