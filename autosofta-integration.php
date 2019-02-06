@@ -16,7 +16,7 @@
  * @Author: Timi Wahalahti
  * @Date:   2019-02-04 15:00:00
  * @Last Modified by:   Timi Wahalahti
- * @Last Modified time: 2019-02-05 16:15:50
+ * @Last Modified time: 2019-02-06 16:18:22
  *
  * @package mysaas-integration
  */
@@ -61,6 +61,15 @@ class Plugin {
 	 *  @var string
 	 */
 	public static $item_uniq_id_key = 'color';
+
+	/**
+	 *  How ofter automated sync should be run via WP cron,
+	 *  give time in seconds. You can use time constants, see
+	 *  https://codex.wordpress.org/Easier_Expression_of_Time_Constants
+	 *
+	 *  @var integer
+	 */
+	public static $cron_interval = MINUTE_IN_SECONDS * 15;
 
 	/**
 	 *  Simplify plugin files including.
@@ -149,6 +158,12 @@ class Plugin {
 			if ( $run ) {
 				Logging::log( 'Manual sync made' );
 
+				// Usually when user does manual sync, there is something off. Maybe a cron job?
+				if ( ! \wp_next_scheduled( 'mysaas_sync' ) ) {
+					$schedule_name = self::$cron_interval % 60;
+					\wp_schedule_event( time(), "{$schedule_name}min", 'mysaas_sync' );
+				}
+
 				$notice_class 	= 'notice notice-success is-dismissible';
 				$notice_message = "Päivitys onnistui! Päivitettiin {$run['save']} ja poistettiin {$run['remove']}.";
 			}
@@ -175,3 +190,32 @@ function load_plugin() {
 
 // Add action to really start the plugin.
 \add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_plugin' );
+
+// Add custom cron schedule
+\add_filter( 'cron_schedules', __NAMESPACE__ . '\\cron_schedules' ); // @codingStandardsIgnoreLine
+function cron_schedules( $schedules ) {
+	$schedule_name = Plugin::$cron_interval % 60;
+	if ( ! isset( $schedules[ "{$schedule_name}min" ] ) ) {
+		$schedules[ "{$schedule_name}min" ] = array(
+			'interval' => Plugin::$cron_interval,
+			'display'  => 'Once every {$schedule_name} minutes',
+		);
+	}
+
+	return $schedules;
+} // end cron_schedules
+
+// Add cron job for sync
+\register_activation_hook( __FILE__, __NAMESPACE__ . '\\schedule_cron_sync' );
+function schedule_cron_sync() {
+	if ( ! \wp_next_scheduled( 'mysaas_sync' ) ) {
+		$schedule_name = Plugin::$cron_interval % 60;
+		\wp_schedule_event( time(), "{$schedule_name}min", 'mysaas_sync' );
+	}
+}
+
+// On deactivation, remove cron job
+\register_deactivation_hook( __FILE__, __NAMESPACE__ . '\\deschedule_cron_sync' );
+function deschedule_cron_sync() {
+	\wp_clear_scheduled_hook( 'mysaas_sync' );
+}
