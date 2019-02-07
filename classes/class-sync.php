@@ -3,7 +3,7 @@
  * @Author: 						Timi Wahalahti, Digitoimisto Dude Oy (https://dude.fi)
  * @Date:   						2019-02-05 12:22:27
  * @Last Modified by:   Timi Wahalahti
- * @Last Modified time: 2019-02-07 12:07:05
+ * @Last Modified time: 2019-02-07 13:45:09
  *
  * @package mysaas-integration
  */
@@ -27,6 +27,14 @@ class Sync extends MysaasIntegration\Plugin {
 	 *  @since  0.1.0
 	 */
 	public static function sync() {
+		// check that we are not running paraller syncs and add lock to prevent that
+		if ( defined( 'MYSAAS_DOING_SYNC' ) ) {
+			Logging::log( 'Paraller sync prevented', 'debug' );
+			return false;
+		}
+
+		define( 'AUTOSOFTA_DOING_SYNC', true );
+
 		// start profiling
 		$run_start = microtime( true );
 		\do_action( 'qm/start', 'mysaas_sync' ); // @codingStandardsIgnoreLine
