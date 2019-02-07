@@ -3,7 +3,7 @@
  * @Author: 						Timi Wahalahti, Digitoimisto Dude Oy (https://dude.fi)
  * @Date:   						2019-02-05 12:22:27
  * @Last Modified by:   Timi Wahalahti
- * @Last Modified time: 2019-02-05 16:15:45
+ * @Last Modified time: 2019-02-07 12:07:05
  *
  * @package mysaas-integration
  */
@@ -178,7 +178,8 @@ class Sync extends MysaasIntegration\Plugin {
 			}
 		} else {
 			// These are meta data we wan't to save only on initial insert.
-			$post_data['meta_input']['_mysaas_' . Plugin::$item_uniq_id_key] = $item->color; // @codingStandardsIgnoreLine
+			$item_uniq_id_key = Plugin::$item_uniq_id_key;
+			$post_data['meta_input']['_mysaas_' . Plugin::$item_uniq_id_key] = $item->{$item_uniq_id_key}; // @codingStandardsIgnoreLine
 			$post_data['meta_input']['_mysaas_sync_initial'] = date( 'Y-m-d H:i:s' );
 		}
 
