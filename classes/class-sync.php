@@ -3,7 +3,7 @@
  * @Author: 						Timi Wahalahti, Digitoimisto Dude Oy (https://dude.fi)
  * @Date:   						2019-02-05 12:22:27
  * @Last Modified by:   Timi Wahalahti
- * @Last Modified time: 2019-02-07 13:45:09
+ * @Last Modified time: 2019-02-07 14:18:39
  *
  * @package mysaas-integration
  */
@@ -224,11 +224,11 @@ class Sync extends MysaasIntegration\Plugin {
 	 *  Handle taxonomy term saving
 	 *
 	 *  @since  0.1.0
-	 *  @param  mixed  $term    term to save. Accepts term ID, slug, or name.
-	 *  @param  string $taxonmy taxonomy of term to save.
-	 *  @return mixed           boolean false if term not saved, term id if existing term or saved.
+	 *  @param  mixed  $term     term to save. Accepts term ID, slug, or name.
+	 *  @param  string $taxonomy taxonomy of term to save.
+	 *  @return mixed            boolean false if term not saved, term id if existing term or saved.
 	 */
-	private static function maybe_save_tax_term( $term = null, $taxonmy = null ) {
+	private static function maybe_save_tax_term( $term = null, $taxonomy = null ) {
 		if ( empty( $term ) || empty( $taxonomy ) ) {
 			return false; // Bail early if there's no term.
 		}
