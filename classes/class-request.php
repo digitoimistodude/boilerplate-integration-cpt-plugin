@@ -3,7 +3,7 @@
  * @Author:             Timi Wahalahti, Digitoimisto Dude Oy (https://dude.fi)
  * @Date:               2019-02-04 15:08:21
  * @Last Modified by:   Timi Wahalahti
- * @Last Modified time: 2019-02-05 16:15:46
+ * @Last Modified time: 2019-02-07 11:59:47
  *
  * @package mysaas-integration
  */
@@ -124,7 +124,7 @@ class Request extends MysaasIntegration\Plugin {
 
 		// check API status code.
 		if ( 200 !== $response['response']['code'] ) {
-			Logging::log( 'Returned status ' . $response['response']['code'], 'debug' );
+			Logging::log( 'Returned status ' . $response['response']['code'] . ' ' . wp_json_encode( $response ), 'error' );
 			return false;
 		}
 
