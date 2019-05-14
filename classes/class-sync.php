@@ -33,7 +33,7 @@ class Sync extends MysaasIntegration\Plugin {
 			return false;
 		}
 
-		define( 'AUTOSOFTA_DOING_SYNC', true );
+		define( 'MYSAAS_DOING_SYNC', true );
 
 		// start profiling
 		$run_start = microtime( true );
