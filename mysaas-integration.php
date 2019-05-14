@@ -96,6 +96,7 @@ class Plugin {
 		include_once self::plugin_base_path( 'classes/class-helper.php' );
 		include_once self::plugin_base_path( 'classes/class-request.php' );
 		include_once self::plugin_base_path( 'classes/class-sync.php' );
+		include_once self::plugin_base_path( 'classes/class-cli.php' );
 
 		// setup logger
 		new Logging();
