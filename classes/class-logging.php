@@ -87,6 +87,17 @@ class Logging extends MysaasIntegration\Plugin {
 		if ( self::$debug_to_log ) {
 			self::log_to_file( $message );
 		}
+		
+		// write log to WP CLI chen called from CLI
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			if ( 'warning' === $level ) {
+				\WP_CLI::warning( $message );
+			} else if ( 'error' === $level  ) {
+				\WP_CLI::error( $message );
+			} else {
+				\WP_CLI::log( $message );
+			}
+		}
 
 		// prefix our log line
 		$message = "Mysaas API: {$message}";
