@@ -16,7 +16,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	\WP_CLI::add_command( 'mysaasreaimport', __NAMESPACE__ . '\\WP_CLI_Sync' );
 }
 
-class WP_CLI_Sync extends MysaasimportIntegration\Plugin {
+class WP_CLI_Sync extends MysaasIntegration\Plugin {
 
     /**
      * Sync the items
