@@ -1,5 +1,5 @@
 # Mysaas integration
-![Tested_up_to WordPress_5.0.3](https://img.shields.io/badge/Tested_up_to-WordPress_5.0.3-blue.svg?style=flat-square) ![Compatible_with PHP_7.2](https://img.shields.io/badge/Compatible_with-PHP_7.2-green.svg?style=flat-square) [![Build Status](https://img.shields.io/travis/digitoimistodude/boilerplate-integration-cpt-plugin.svg?style=flat-square)](https://travis-ci.org/digitoimistodude/boilerplate-integration-cpt-plugin)
+![Tested_up_to WordPress_5.0.3](https://img.shields.io/badge/Tested_up_to-WordPress_5.0.3-blue.svg?style=flat-square) ![Compatible_with PHP_7.2](https://img.shields.io/badge/Compatible_with-PHP_7.2-green.svg?style=flat-square) [![Build Status](https://img.shields.io/travis/com/digitoimistodude/boilerplate-integration-cpt-plugin.svg?style=flat-square)](https://travis-ci.com/digitoimistodude/boilerplate-integration-cpt-plugin)
 
 Integration to update items from SaaS service to site.
 
